@@ -6,6 +6,7 @@ module.exports = app => {
   
     
     router.get("/", dms.findAll);
+    router.get("/data", dms.getdms);
     router.put('/:id', dms.update);
     router.delete('/:id', dms.delete);
     router.get("/search",[middleware.verifyToken], dms.search);

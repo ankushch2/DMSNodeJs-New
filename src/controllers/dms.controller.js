@@ -1,5 +1,6 @@
 const {generateCrudMethods}= require('../services/index')
 const dms = require('../models/dms.model');
+const user = require('../models/auth.user.model');
 const dmsCrud = generateCrudMethods(dms);
 const ObjectId = require('mongoose').Types.ObjectId;
 
@@ -10,7 +11,7 @@ exports.getdms= (req,res,next)=>{
 
     console.log(req.query.limit,req.query.page);
 
-    dms.find()
+    user.find()
     .limit(req.query.limit)
     .skip(req.query.limit*req.query.page)
     .sort({firstName:req.query.sort})
@@ -18,6 +19,9 @@ exports.getdms= (req,res,next)=>{
         res.status(200).json(data);
     }).catch(err=>res.status(400).json(err))
 }
+
+
+
 exports.findAll = (req,res,next)=>{
     dmsCrud.getAll()
     .then(data=>{
@@ -42,9 +46,9 @@ exports.search= (req,res,next)=>{
         };
 
     }
-    else if(req.query.by==='designation' )
+    else if(req.query.by==='mobile' )
     {
-        searchQuery={"designation":{ $regex: '.*' + req.query.designation + '.*' } 
+        searchQuery={"mobile":{ $regex: '.*' + req.query.mobile + '.*' } 
         };
     }
 
@@ -135,4 +139,6 @@ exports.search= (req,res,next)=>{
                 message: "Could not delete user with id " + req.params.id
             });
         });
-    };   
+    }; 
+
+  

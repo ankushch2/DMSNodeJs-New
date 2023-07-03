@@ -6,7 +6,9 @@ module.exports = app => {
     var router = require("express").Router();
   
     router.post("/login", auth.login);
-    router.post("/register", auth.register);    
+    router.post("/signin", auth.signin);
+    router.post("/register", auth.register);   
+    
     router.get("/approval",[middleware.verifyToken,middleware.isAdminRole ],auth.approval);    
 
     router.get("/generateOTP/:mobile", auth.generateOTP);
