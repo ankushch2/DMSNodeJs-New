@@ -11,7 +11,7 @@ exports.login= (req,res,next)=>{
     AuthUser.findOne({ mobile: req.body.mobile}).then(data=>{
           console.log(data.mobile);
           if(req.body.mobile && req.body.OTP)
-            res.status(200).json({"token":data.token});
+            res.status(200).json({"token":data.token,"mobile":data.mobile,"role":data.role});
           else{
             res.status(400).json({"err":"Inavlid OTP"});
           }
